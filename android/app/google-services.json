@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611312175727",
+    "project_id": "just-play-7517d",
+    "storage_bucket": "just-play-7517d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611312175727:android:503bc8bde29ce99b0d5b9a",
+        "android_client_info": {
+          "package_name": "com.example.just_play_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlzr_mgDj03MrHociUZeHUIerr_rduoDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
