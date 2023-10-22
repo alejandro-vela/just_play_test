@@ -3,6 +3,7 @@ import 'package:just_play_test/global_locator.dart';
 import 'package:just_play_test/src/bloc/auth/auth_bloc.dart';
 import 'package:just_play_test/src/services/navigation_service.dart';
 import 'package:just_play_test/src/theme/colors.dart';
+import 'package:just_play_test/src/ui/cities/cities.dart';
 import 'package:just_play_test/src/ui/login_screen/login_screen.dart';
 import 'package:just_play_test/src/widgets/images/custom_image.dart';
 
@@ -40,7 +41,13 @@ class NavDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.location_on),
             title: Text('Ciudad'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.of(context).pop(),
+              NavigationService.push(
+                  context: context,
+                  screen: CitiesScreen(),
+                  routeName: CitiesScreen.routeName)
+            },
           ),
           ListTile(
             leading: Icon(Icons.sports_soccer_rounded),
