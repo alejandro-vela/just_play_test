@@ -18,18 +18,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  AuthBloc authBloc = AuthBloc();
   late Animation<double> animation;
+
   late AnimationController animationController = AnimationController(
       duration: const Duration(milliseconds: 800), vsync: this);
+  Animation<Color?>? colorAnimation;
+  ColorTween colorTween =
+      ColorTween(begin: AppColors.secondaryColor, end: AppColors.primaryColor);
+
   @override
   void initState() {
-    authBloc = global<AuthBloc>();
-    authBloc.add(AuthValidateEvent());
+    global<AuthBloc>().add(AuthValidateEvent());
     Future.delayed(Duration.zero, () {
       FocusScope.of(context).unfocus();
     });
-    _animationController(begin: 0.0, end: 0.9);
+    _animationController(begin: 0.0, end: 0.7);
     animationController.forward();
     super.initState();
   }
@@ -44,7 +47,13 @@ class _SplashScreenState extends State<SplashScreen>
       {int? duration, required double begin, required double end}) {
     animationController = AnimationController(
         duration: Duration(milliseconds: duration ?? 800), vsync: this);
+
     animation = Tween(begin: begin, end: end).animate(animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    colorAnimation = colorTween.animate(animationController)
       ..addListener(() {
         setState(() {});
       });
@@ -54,13 +63,13 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor:
+          colorAnimation?.value ?? AppColors.secondaryColor.withOpacity(.4),
       body: BlocListener<AuthBloc, AuthState>(
-        bloc: authBloc,
+        bloc: global<AuthBloc>(),
         listener: (context, state) async {
           if (state is AuthAuthenticatedState) {
-            authBloc.add(AuthInitialEvent());
-            _animationController(begin: 0.9, end: 1.0);
+            _animationController(begin: 0.7, end: 1.0);
             await animationController.forward().then(
                   (value) => {
                     NavigationService.pushAndRemoveUntil(
@@ -72,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
                 );
           }
           if (state is AuthNoAuthenticatedState) {
-            _animationController(begin: 0.9, end: 1.0);
+            _animationController(begin: 0.7, end: 1.0);
             await animationController.forward().then(
                   (value) => {
                     NavigationService.pushAndRemoveUntil(
@@ -83,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen>
                 );
           }
           if (state is AuthFinishWithError) {
-            _animationController(begin: 0.9, end: 1.0);
+            _animationController(begin: 0.7, end: 1.0);
             await animationController.forward().then(
                   (value) => {
                     NavigationService.pushAndRemoveUntil(
@@ -109,6 +118,7 @@ class _SplashScreenState extends State<SplashScreen>
                     CustomImage(
                       image: AssetsData.logoJustPlay,
                       height: size.height * 0.16,
+                      borderRadius: 30,
                     ),
                     SizedBox(height: 40),
                     Container(
@@ -121,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
                           minHeight: 5.0,
                           value: animation.value,
                           color: AppColors.white,
-                          backgroundColor: AppColors.grey,
+                          backgroundColor: AppColors.secondaryColor,
                         ),
                       ),
                     ),
