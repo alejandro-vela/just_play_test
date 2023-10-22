@@ -10,6 +10,7 @@ class AppColors {
   static const textColor = Color(0xff53473b);
   static const white = Color(0xffffffff);
   static const grey = Color(0xffe0e0e0);
+  static const black = Color(0xff000000);
 
   var transparent = Colors.transparent;
 }

@@ -13,6 +13,8 @@ class AuthChangeEvent extends AuthEvent {}
 
 class AuthValidateEvent extends AuthEvent {}
 
+class AuthLoginEvent extends AuthEvent {}
+
 class AuthLogInEvent extends AuthEvent {
   const AuthLogInEvent();
 }
