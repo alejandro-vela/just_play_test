@@ -7,20 +7,12 @@ class LocalStorage {
     prefs = await SharedPreferences.getInstance();
   }
 
-  get tokenFcm {
-    return prefs.getString('tokenFcm') ?? '';
+  get apiToken {
+    return prefs.getString('api-token') ?? '';
   }
 
-  set setTokenFcm(String value) {
-    prefs.setString('tokenFcm', value);
-  }
-
-  get token {
-    return prefs.getString('token') ?? '';
-  }
-
-  set setToken(String value) {
-    prefs.setString('token', value);
+  set setApiToken(String value) {
+    prefs.setString('api-token', value);
   }
 
   clear() {
