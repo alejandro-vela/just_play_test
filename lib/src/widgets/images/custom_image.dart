@@ -7,8 +7,8 @@ import 'image_view_screen.dart';
 
 enum ImageType { file, network }
 
-const noImage = 'assets/img/static/no-image.png';
-const jarLoading = 'assets/img/static/jar-loading.gif';
+const noImage = 'assets/static/img/no-image.png';
+const jarLoading = 'assets/static/img/jar-loading.gif';
 
 class CustomImage extends StatelessWidget {
   final String image;
@@ -97,6 +97,8 @@ class _ImageAsset extends StatelessWidget {
             errorBuilder: (context, error, stackTrace) {
               return Image.asset(
                 noImage,
+                height: height,
+                width: width,
                 fit: fit ?? BoxFit.cover,
               );
             },
@@ -126,6 +128,8 @@ class _ImageFile extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) {
         return Image.asset(
           noImage,
+          height: height,
+          width: width,
           fit: fit ?? BoxFit.cover,
         );
       },
@@ -173,6 +177,8 @@ class _ImageNetwork extends StatelessWidget {
           (BuildContext context, Object exception, StackTrace? stackTrace) {
         return Image.asset(
           noImage,
+          height: height,
+          width: width,
           fit: fit ?? BoxFit.cover,
           filterQuality: FilterQuality.medium,
         );
