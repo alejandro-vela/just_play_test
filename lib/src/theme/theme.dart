@@ -12,12 +12,12 @@ ThemeData lightThemeData = ThemeData(
     centerTitle: false,
     titleSpacing: 0,
     iconTheme: IconThemeData(
-      color: AppColors.textColor,
+      color: AppColors.white,
       size: 24,
     ),
     titleTextStyle: GoogleFonts.roboto(
-      color: AppColors.textColor,
-      fontWeight: FontWeight.bold,
+      color: AppColors.white,
+      fontWeight: FontWeight.w600,
       fontSize: 20,
     ),
   ),
