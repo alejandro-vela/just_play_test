@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
-import '../../global_locator.dart';
 import '../utils/lang/type_safety.dart';
 import 'endpoint.dart';
 
@@ -17,7 +16,7 @@ abstract class APIRepository {
 }
 
 class DefaultAPIRepository implements APIRepository {
-  final _logger = global<Logger>();
+  final _logger = Logger();
 
   @override
   Future<Map<String, dynamic>> request({required Endpoint endpoint}) async {
@@ -77,13 +76,21 @@ class DefaultAPIRepository implements APIRepository {
     final decodedBody = json.decode(response.body);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      Map<String, dynamic>? map = cast<Map<String, dynamic>>(decodedBody);
-      if (map != null) {
-        map.addAll({'statusCode': response.statusCode});
-        _logger.wtf('Response - body map: $map');
-        return map;
+      if (decodedBody is List) {
+        List<Map<String, dynamic>> modifiedList = [];
+
+        for (var item in decodedBody) {
+          if (item is Map<String, dynamic>) {
+            item.addAll({'statusCode': response.statusCode});
+            modifiedList.add(item);
+          }
+        }
+
+        _logger.wtf('Response - body list: $modifiedList');
+        return {'data': modifiedList, 'statusCode': response.statusCode};
       }
     }
+
     _logger.d('Response error ${response.body}');
     var map = cast<Map<String, dynamic>>(decodedBody);
     if (map != null) {
