@@ -1,16 +1,31 @@
-# just_play_test
+# Just Play Test
 
-A new Flutter project.
+## _Realizada por Alejandro Muñoz_
 
-## Getting Started
+Prueba realizada con:
 
-This project is a starting point for a Flutter application.
+- Patron bloc
+- Patrones solid
+- Inyeccion de dependencias
+- Dart define para variables de entorno
+- Login con Google mediante Firebase
+- Api de ciudades
 
-A few resources to get you started if this is your first Flutter project:
+### Metodo de compilación
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Crear archivo a nivel raiz llamado api-key.json y agregar las credenciales enviadas por correo
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Revisar que en Vscode el archivo _launch.json_ este asi:
+
+```bash
+ {
+   "name": "just_play_test",
+   "request": "launch",
+   "type": "dart",
+   "args": ["--dart-define-from-file","api-key.json"] //add this line
+ },
+```
+
+- Luego podran compilar normalmente con F5
+
+[Video demostrativo](https://youtube.com/shorts/wd0f9aKvhaY)
