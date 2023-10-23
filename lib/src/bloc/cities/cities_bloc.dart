@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:just_play_test/global_locator.dart';
 import 'package:just_play_test/src/repository/cities/cities_repository.dart';
 import 'package:just_play_test/src/repository/model/cities.dart';
 import 'package:just_play_test/src/services/local_storage.dart';
-
+import 'package:just_play_test/src/repository/model/event.dart';
+import 'package:flutter/services.dart' show rootBundle;
 part 'cities_event.dart';
 part 'cities_state.dart';
 
@@ -34,7 +37,11 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
         final List<CitiesModel> checks = response['data']
             .map<CitiesModel>((e) => CitiesModel.fromJson(e))
             .toList();
-        emit(LoadedCitiesState(cities: checks));
+        final citiesResponse = checks.take(10).toList();
+        citiesResponse.add(CitiesModel(stateName: 'Todos'));
+        emit(
+          LoadedCitiesState(cities: citiesResponse),
+        );
       } else {
         emit(ErrorCitiesState(
             error: response['massage'] ?? 'Error al cargar las ciudades'));
@@ -42,5 +49,14 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     } catch (e) {
       emit(ErrorCitiesState(error: e.toString()));
     }
+  }
+
+  Future<List<SoccerEvent>> loadSoccerEventData() async {
+    String jsonString =
+        await rootBundle.loadString('assets/static/json/events.json');
+
+    final List<dynamic> parsedJson = json.decode(jsonString);
+
+    return parsedJson.map((json) => SoccerEvent.fromJson(json)).toList();
   }
 }

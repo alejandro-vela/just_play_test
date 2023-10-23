@@ -33,7 +33,7 @@ class NavDrawer extends StatelessWidget {
                 SizedBox(width: 10),
                 Text(
                   global<AuthBloc>().user?.displayName?.capitalize() ?? 'User',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: AppColors.white, fontSize: 25),
                 ),
               ],
             ),
@@ -48,11 +48,6 @@ class NavDrawer extends StatelessWidget {
                   screen: CitiesScreen(),
                   routeName: CitiesScreen.routeName)
             },
-          ),
-          ListTile(
-            leading: Icon(Icons.sports_soccer_rounded),
-            title: Text('Actividades'),
-            onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
